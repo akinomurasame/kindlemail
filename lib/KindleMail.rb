@@ -54,9 +54,9 @@ module KindleMail
           puts "This will overwrite any settings you have set previously"
           puts hyphens
           print "Kindle address to set as your default address> "
-          @config_manager.set_default_kindle_address(gets.chomp.to_s) 
+          @config_manager.set_default_kindle_address(gets.chomp.to_s)
 
-          puts 
+          puts
           puts hyphens
           puts "Gmail Authentication Settings"
           puts "To get a valid anonymous token, use the instructions located here\nhttp://code.google.com/p/google-mail-xoauth-tools/wiki/XoauthDotPyRunThrough"
@@ -85,7 +85,7 @@ module KindleMail
 
         if(@opts[:clear_history_given])
           do_it = false
-          if(!@opts[:force_given])      
+          if(!@opts[:force_given])
              print "Are you sure you wish to clear the history of files you have sent using kindlemail? [y/n]> "
              response = gets.to_s.chomp
              if(response.empty? or response.downcase.eql?("y") or response.downcase.eql?("yes"))
@@ -104,7 +104,7 @@ module KindleMail
         end
 
         if ARGV.empty?
-          raise ArgumentError, "Please specify a file to send (or use the -h option to see help)" 
+          raise ArgumentError, "Please specify a file to send (or use the -h option to see help)"
         end
 
         mailer = KindleMailer.new(@config_manager.get_email_credentials)
@@ -119,15 +119,15 @@ module KindleMail
             raise ArgumentError, "No address has been specified to send the item to.\nEither add an address in #{USER_CONF_FILE} or use the -kindle_address (-k) option"
           end
         else
-          #User has specified the -k flag 
+          #User has specified the -k flag
           kindle_address = @opts[:kindle_address]
         end
 
-        force_send = @opts[:force_given] ? true : false 
+        force_send = @opts[:force_given] ? true : false
         file_to_send = ARGV[0]
 
         if(!force_send)
-          if(@datastore.file_exists?(kindle_address, File.basename(file_to_send))) 
+          if(@datastore.file_exists?(kindle_address, File.basename(file_to_send)))
             raise ArgumentError, "This file has already been sent to #{kindle_address}. Use the --force (-f) option if you want to resend it"
           end
         end
@@ -143,26 +143,26 @@ module KindleMail
     end
 
     def print_info
-      puts "kindlemail was born out of my own laziness. To put things bluntly" 
+      puts "kindlemail was born out of my own laziness. To put things bluntly"
       puts "I'm too lazy to pick up my beloved Kindle, get a usb cable, plug"
       puts "it into my computer, drag and drop books and documents to it,"
       puts "unplug the usb cable. Too ardous and involves getting up."
       puts
-      puts "So I wrote this, it's simple, a bit rubbish, probably doesn't work" 
-      puts "properly but it's useful when I just want to fire off a .mobi book" 
+      puts "So I wrote this, it's simple, a bit rubbish, probably doesn't work"
+      puts "properly but it's useful when I just want to fire off a .mobi book"
       puts "to my Kindle and forget about it until later."
       puts
-      puts "Amazon have made a great service with the Personal Document Service," 
-      puts "although it's worth reminding users of the 3G Kindle that they will" 
+      puts "Amazon have made a great service with the Personal Document Service,"
+      puts "although it's worth reminding users of the 3G Kindle that they will"
       puts "be charged for using this service"
-      puts 
-      puts "If you hate this application, supress your hatred and tell me what" 
+      puts
+      puts "If you hate this application, supress your hatred and tell me what"
       puts "you hate about it so I can change it"
-      puts 
+      puts
       puts "Version:                #{APP_VERSION}"
-      puts "Homepage:               #{HOMEPAGE}" 
+      puts "Homepage:               #{HOMEPAGE}"
       puts "Author:                 #{AUTHOR}"
-      puts 
+      puts
 
       begin
         config = @config_manager.get_user_credentials
