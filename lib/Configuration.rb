@@ -10,12 +10,12 @@ class Configuration
   def configuration_setup
     dirname = File.expand_path(USER_DIR)
     if !File.exists?(dirname)
-      Dir.mkdir(dirname) 
+      Dir.mkdir(dirname)
       create_storage_dir
       create_staging_dir
       create_user_conf_file
       create_user_email_conf_file
-    else     
+    else
       create_user_conf_file if !File.exists?(USER_CONF_FILE)
       create_storage_dir if !File.exists?(File.expand_path(STORAGE_DIR))
       create_staging_dir if !File.exists?(File.expand_path(STAGING_DIR))
@@ -61,23 +61,33 @@ class Configuration
     File.open(EMAIL_CONF_FILE, "w") do |file|
       file.puts "smtp_oauth_token: #{token}"
       file.puts "smtp_oauth_token_secret: #{token_secret}"
-      file.puts "email #{email}"
+      file.puts "email: #{email}"
     end
     puts "Complete!"
   end
 
 
   def get_email_credentials
-    raise ArgumentError, "Cannot find email credentials file #{EMAIL_CONF_FILE}." if !File.exists?(EMAIL_CONF_FILE)
-    begin
-      load_yaml(EMAIL_CONF_FILE)
-    rescue
-      raise StandardError, "Error parsing #{EMAIL_CONF_FILE}"
+    if (ENV['SMTP_OAUTH_TOKEN']  &&
+      ENV['SMTP_OAUTH_TOKEN_SECRET'] &&
+      ENV['KINDLE_USER_EMAIL'])
+
+      return {
+        :smtp_oauth_token => ENV['SMTP_OAUTH_TOKEN'],
+        :smtp_oauth_token_secret => ENV['SMTP_OAUTH_TOKEN_SECRET'],
+        :email => ENV['KINDLE_USER_EMAIL']}
+    else
+      raise ArgumentError, "Cannot find email credentials file #{EMAIL_CONF_FILE}." if !File.exists?(EMAIL_CONF_FILE)
+      begin
+        load_yaml(EMAIL_CONF_FILE)
+      rescue
+        raise StandardError, "Error parsing #{EMAIL_CONF_FILE}"
+      end
     end
   end
 
   def get_user_credentials
-    error_msg =  "The configuration file #{USER_CONF_FILE} was found but appears to be invalid/incomplete.\nThe most likely reason for this is the fact that you need to set a default kindle address to send items to.\nYou must edit the file and follow the instructions in the comments before trying again. Alternatively use the -k flag to specify a kindle address to send the item to" 
+    error_msg =  "The configuration file #{USER_CONF_FILE} was found but appears to be invalid/incomplete.\nThe most likely reason for this is the fact that you need to set a default kindle address to send items to.\nYou must edit the file and follow the instructions in the comments before trying again. Alternatively use the -k flag to specify a kindle address to send the item to"
 
     raise ArgumentError, "Cannot find user credentials file #{USER_CONF_FILE}." if !File.exists?(USER_CONF_FILE)
     begin
@@ -90,4 +100,3 @@ class Configuration
     return config
   end
 end
-
