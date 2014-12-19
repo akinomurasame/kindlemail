@@ -53,15 +53,21 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<gmail-mailer>, [">= 0"])
       s.add_development_dependency(%q<trollop>, [">= 0"])
+      s.add_runtime_dependency(%q<gmail-mailer>, [">= 0"])
+      s.add_runtime_dependency(%q<trollop>, [">= 0"])
     else
       s.add_dependency(%q<bundler>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
+      s.add_dependency(%q<gmail-mailer>, [">= 0"])
+      s.add_dependency(%q<trollop>, [">= 0"])
       s.add_dependency(%q<gmail-mailer>, [">= 0"])
       s.add_dependency(%q<trollop>, [">= 0"])
     end
   else
     s.add_dependency(%q<bundler>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
+    s.add_dependency(%q<gmail-mailer>, [">= 0"])
+    s.add_dependency(%q<trollop>, [">= 0"])
     s.add_dependency(%q<gmail-mailer>, [">= 0"])
     s.add_dependency(%q<trollop>, [">= 0"])
   end
