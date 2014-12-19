@@ -8,6 +8,7 @@ source "http://rubygems.org"
 group :development do
     gem "bundler"
     gem "jeweler"
-    gem "gmail-mailer"
-    gem "trollop"
 end
+
+gem "gmail-mailer"
+gem "trollop"

@@ -19,8 +19,6 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{Sends documents to a designated kindle address painlessly and via the CLI. No need to fumble around with clumsy attachment boxes so forth, just whack in the documents you want to send and hit enter}
   gem.email = "djharperuk@gmail.com"
   gem.authors = ["Daniel Harper"]
-  gem.add_dependency "gmail-mailer"
-  gem.add_dependency "trollop"
 end
 Jeweler::RubygemsDotOrgTasks.new
 require 'rake/testtask'
